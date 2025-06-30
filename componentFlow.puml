@@ -1,0 +1,61 @@
+@startuml AlexaSkillCodeFlow
+title Kumbhaka Pranayama Code Execution Flow
+
+participant User as "User"
+participant Alexa as "Alexa Service"
+participant Skill as "Your Skill Backend"
+participant BreathHandler as "BreathHandler"
+participant Session as "Session Attributes"
+
+group Initialization
+User -> Alexa: "Alexa, start Kumbhaka Pranayama"
+Alexa -> Skill: LaunchRequest
+Skill -> Session: Get session attributes
+Session --> Skill: null (new session)
+Skill -> BreathHandler: new(duration=5)
+Skill --> Alexa: Welcome message + instructions
+Alexa --> User: Speaks welcome
+end
+
+group Breathing Cycle Loop
+loop while session_active
+    Skill -> BreathHandler: guidePhase('inhale')
+    BreathHandler -> Alexa: Progressive Response ("Inhale...")
+    Alexa --> User: "Inhale for 4 seconds"
+
+    Skill -> BreathHandler: guidePhase('hold')
+    BreathHandler -> Alexa: Progressive Response ("Hold...")
+    Alexa --> User: "Hold for 6 seconds"
+
+    Skill -> BreathHandler: guidePhase('exhale')
+    BreathHandler -> Alexa: Progressive Response ("Exhale...")
+    Alexa --> User: "Exhale for 4 seconds"
+
+    BreathHandler -> Session: Update remaining_time
+end
+
+alt Pause Scenario
+    User -> Alexa: "Pause"
+    Alexa -> Skill: PauseIntent
+    Skill -> Session: Store current_phase
+    Skill --> Alexa: Pause confirmation
+    Alexa --> User: "Session paused"
+
+    User -> Alexa: "Resume"
+    Alexa -> Skill: ResumeIntent
+    Skill -> Session: Get current_phase
+    Session --> Skill: 'hold' (example)
+    Skill -> BreathHandler: resumeFrom('hold')
+    BreathHandler -> Alexa: Continue instructions
+    Alexa --> User: "Resuming, hold..."
+end
+
+alt Stop Scenario
+    User -> Alexa: "Stop"
+    Alexa -> Skill: StopIntent
+    Skill -> Session: Clear session
+    Skill --> Alexa: Completion message
+    Alexa --> User: "Session ended"
+end
+
+@enduml

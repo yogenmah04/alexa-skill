@@ -1,0 +1,22 @@
+{
+    "name": "alexa-skill-docker",
+    "version": "1.0.0",
+    "description": "Dockerized Alexa Skill",
+    "main": "src/index.js",
+    "scripts": {
+        "start": "node src/index.js",
+        "dev": "nodemon src/index.js",
+        "test": "jest"
+    },
+    "dependencies": {
+        "ask-sdk-core": "^2.12.0",
+        "ask-sdk-model": "^1.37.1",
+        "ask-sdk-express-adapter": "^2.12.0",
+        "express": "^4.18.2",
+        "dotenv": "^16.3.1"
+    },
+    "devDependencies": {
+        "nodemon": "^3.0.2",
+        "jest": "^29.7.0"
+    }
+}

@@ -1,0 +1,43 @@
+@startuml ComponentFlow
+title BreathHandler Internal Logic
+
+start
+:Intent Request Received;
+if (Intent?) then (StartPranayamaIntent)
+  :Create new BreathHandler;
+  :Set duration from slot or default;
+  :Initialize breathPattern (4-6-4);
+  :Start first phase;
+else if (PauseIntent)
+  :Store current phase;
+  :Stop timers;
+else if (ResumeIntent)
+  :Retrieve current phase;
+  :Continue from stored phase;
+else if (StopIntent)
+  :Clear all timers;
+  :Reset session;
+endif
+
+group Breathing Phase Logic
+repeat
+  :Get current phase;
+  switch (current_phase)
+    case (inhale)
+      :Trigger inhale instructions;
+      :Wait 4 seconds;
+    case (hold)
+      :Trigger hold instructions;
+      :Wait 6 seconds;
+    case (exhale)
+      :Trigger exhale instructions;
+      :Wait 4 seconds;
+  endswitch
+  :Update remaining_time;
+repeat while (remaining_time > 0)
+end
+
+:Send completion message;
+stop
+
+@enduml

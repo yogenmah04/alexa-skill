@@ -1,0 +1,49 @@
+@startuml KumbhakaPranayamaFlow
+title Kumbhaka Pranayama Alexa Skill Flow
+
+start
+:User invokes skill: "Alexa, start Kumbhaka Pranayama";
+repeat
+  if (Session new?) then (yes)
+    :Initialize BreathHandler;
+    :Set default duration (5 mins);
+    :Explain pattern: "4s inhale, 6s hold, 4s exhale";
+  else (no)
+  endif
+
+  -> Breathing Cycle;
+  repeat
+    :"Inhale for 4 seconds";
+    :"Hold for 6 seconds";
+    :"Exhale for 4 seconds";
+    :Decrement remaining time;
+  repeat while (Time remaining?) is (yes)
+  -> Cycle Complete;
+
+  if (Duration completed?) then (yes)
+    :"Session complete. Well done!";
+    stop
+  else (no)
+    if (User says "Pause") then (yes)
+      :Store current state;
+      :"Session paused";
+      if (User says "Resume") then (yes)
+        -> Breathing Cycle;
+      else (no)
+        :Timeout after 5 minutes;
+        stop
+      endif
+    else (no)
+    endif
+
+    if (User says "Stop") then (yes)
+      :"Ending session";
+      stop
+    else (no)
+      -> Breathing Cycle;
+    endif
+  endif
+repeat while (Session active?) is (yes)
+stop
+
+@enduml

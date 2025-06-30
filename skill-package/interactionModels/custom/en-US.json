@@ -1,0 +1,50 @@
+{
+  "interactionModel": {
+    "languageModel": {
+      "invocationName": "kumbhaka pranayama",
+      "intents": [
+        {
+          "name": "StartPranayamaIntent",
+          "slots": [
+            {
+              "name": "duration",
+              "type": "AMAZON.NUMBER",
+              "samples": [
+                "for {duration} minutes",
+                "for {duration} rounds",
+                "{duration}"
+              ]
+            }
+          ],
+          "samples": [
+            "start",
+            "begin",
+            "start session",
+            "start for {duration} minutes",
+            "do {duration} rounds"
+          ]
+        },
+        {
+          "name": "AMAZON.PauseIntent",
+          "samples": []
+        },
+        {
+          "name": "AMAZON.ResumeIntent",
+          "samples": []
+        },
+        {
+          "name": "AMAZON.StopIntent",
+          "samples": []
+        },
+        {
+          "name": "AMAZON.CancelIntent",
+          "samples": []
+        },
+        {
+          "name": "AMAZON.HelpIntent",
+          "samples": []
+        }
+      ]
+    }
+  }
+}

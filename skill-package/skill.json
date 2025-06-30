@@ -1,0 +1,35 @@
+{
+    "manifest": {
+        "publishingInformation": {
+            "locales": {
+                "en-US": {
+                    "name": "Docker Skill",
+                    "summary": "Sample skill running in Docker",
+                    "description": "Sample skill running in Docker container",
+                    "examplePhrases": [
+                        "Alexa open docker skill",
+                        "Alexa ask docker skill hello",
+                        "Alexa tell docker skill hi"
+                    ],
+                    "keywords": [
+                        "docker",
+                        "node",
+                        "sample"
+                    ]
+                }
+            },
+            "isAvailableWorldwide": true,
+            "testingInstructions": "Sample testing instructions.",
+            "category": "KNOWLEDGE_AND_TRIVIA",
+            "distributionCountries": []
+        },
+        "apis": {
+            "custom": {
+                "endpoint": {
+                    "uri": "YOUR_ENDPOINT_URL"
+                }
+            }
+        },
+        "manifestVersion": "1.0"
+    }
+}
